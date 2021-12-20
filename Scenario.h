@@ -16,6 +16,7 @@ public:
 		UNBREAKABLE,
 		FIRED
 	};
+
 	Scenario();
 	~Scenario();
 	void generateMatrix();
@@ -25,13 +26,18 @@ public:
 	int getColumns() const;
 	int getRows() const;
 	int getCellWidth() const;
+	void fireOff();
+	sf::Vector2f getOriginPosition();
 	virtual void draw(sf::RenderWindow &window) override;
 	virtual void update(float dt) override;
+	class Spawner* spawn;
 
 private:
 	int cell_width = 32;
 	BLOCK_TYPE map[columns][rows];
 	BoxCollider *colliders[columns][rows];
 	float timer = 0.0f;
+	// Унаследовано через GameObject
+	virtual sf::Vector2f getPivotPosition() override;
 };
 

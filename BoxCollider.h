@@ -51,4 +51,7 @@ public:
 		shape.setFillColor(sf::Color::Green);
 		window.draw(shape);
 	}
+
+	// Унаследовано через GameObject
+	virtual sf::Vector2f getPivotPosition() override;
 };

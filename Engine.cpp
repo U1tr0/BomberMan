@@ -4,50 +4,53 @@
 #include "Player.h"
 #include "Spawner.h"
 #include <Windows.h>
+#include "Menu.h"
 using namespace sf;
 
 void Engine::run()
 {
-
-
-	int scrX = GetSystemMetrics(SM_CXSCREEN);
-	int scrY = GetSystemMetrics(SM_CYSCREEN);
 	Clock clock;
 	clock.restart();
 	Scenario map;
 	Player pl(&map);
-	Spawner spawner(&map, this);
-	map.generateMatrix();
-	RenderWindow window(VideoMode(scrX, scrY), "BomberMan");
-
+	Spawner spawner(&map, this, &pl);
+	RenderWindow window(VideoMode(600, 480), "BomberMan");
+	Menu menu(window, this);
 	game_objects.push_back(&map);
 	game_objects.push_back(&pl);
 	damage_recievers.push_back(&pl);
-	spawner.spawn();
+	map.spawn = &spawner;
+	map.generateMatrix();
 
 	while (window.isOpen())
 	{
+		
+		
 		Time dt = clock.restart();
 		float delta_time = dt.asSeconds();
 		Event event;
+		
 		while (window.pollEvent(event))
 		{
+			ImGui::SFML::ProcessEvent(event);
 			if (event.type == Event::Closed)
 				window.close();
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::W)) { pl.moveUp(); }
-		else if (Keyboard::isKeyPressed(Keyboard::A)) { pl.moveLeft(); }
-		else if (Keyboard::isKeyPressed(Keyboard::S)) { pl.moveDown(); }
-		else if (Keyboard::isKeyPressed(Keyboard::D)) { pl.moveRight(); }
-		if (Keyboard::isKeyPressed(Keyboard::Space)) { pl.placeBomb(); }
+		window.clear(Color::Black);
 
-		window.clear(Color::White);
-
-		update(delta_time);
-
-		render(window);
-
+		if (isPlaying) {
+			if (Keyboard::isKeyPressed(Keyboard::W)) { pl.moveUp(); }
+			else if (Keyboard::isKeyPressed(Keyboard::A)) { pl.moveLeft(); }
+			else if (Keyboard::isKeyPressed(Keyboard::S)) { pl.moveDown(); }
+			else if (Keyboard::isKeyPressed(Keyboard::D)) { pl.moveRight(); }
+			if (Keyboard::isKeyPressed(Keyboard::Space)) { pl.placeBomb(); }
+			if (Keyboard::isKeyPressed(Keyboard::G)) { map.generateMatrix(); spawner.spawn(); }
+			update(delta_time);
+			render(window);
+		}
+			
+		menu.update(dt);				
 		window.display();
 	}
 

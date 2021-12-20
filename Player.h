@@ -8,12 +8,13 @@
 #include <vector>
 #include "GameObject.h"
 #include "DamageReciever.h"
+#include <queue>
+#include "HealthBar.h"
 enum class Directions{up, down, right, left, non};
 using namespace sf;
 class Player : public GameObject, public DamageReciever
 {
 public:
-	int hp = 3;
 	Player(class Scenario* scenario);
 	~Player();
 
@@ -26,16 +27,16 @@ public:
 	Bomb *bomb = nullptr;
 	void placeBomb();
 	std::vector<Bomb *> bombs;
-
+	void die();
+	int killsCounter = 0;
 	virtual void draw(sf::RenderWindow &window) override;
 	virtual void update(float dt) override;
 
 private:
+	HealthBar hb;
 	int animRow = 1;
-
 	bool check_collistion_x();
 	bool check_collistion_y();
-	void die();
 	void return_back();
 	float reload_time = 1.0f;
 	float timer = reload_time+ 1.0f;
@@ -53,4 +54,6 @@ private:
 	Scenario *scenario;
 	float speed =150.0f;
 	virtual void applyDamage(float x, float y, float damage) override;
+	// Унаследовано через GameObject
+	virtual sf::Vector2f getPivotPosition() override;
 };

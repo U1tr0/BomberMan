@@ -42,6 +42,30 @@
     <ClCompile Include="BoxCollider.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui_demo.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui_draw.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui_tables.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui_widgets.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui-SFML.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenario.h">
@@ -71,6 +95,12 @@
     <ClInclude Include="DamageReciever.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="player.png">
@@ -83,6 +113,15 @@
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="enemies.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="bomb.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="fire.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="bmpMejoras.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

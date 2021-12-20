@@ -88,13 +88,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Users\Nikita\Desktop\BomberMan\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Users\Nikita\Desktop\BomberMan\include;;C:\Program Files %28x86%29\SFML-2.5.1\imgui-master;C:\Users\Компьютер\Desktop\glew-2.1.0\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Nikita\Desktop\BomberMan\lib;C:\Users\Nikita\Desktop\BomberMan\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Nikita\Desktop\BomberMan\lib;C:\Users\Nikita\Desktop\BomberMan\lib;%(AdditionalLibraryDirectories);C:\Users\Компьютер\Desktop\glew-2.1.0\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-system-d.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -105,14 +105,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\SFML-2.5.1\include;%(AdditionalIncludeDirectories);C:\Program Files %28x86%29\SFML-2.5.1\imgui-master;C:\Users\Компьютер\Desktop\glew-2.1.0\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\SFML-2.5.1\lib;%(AdditionalLibraryDirectories);C:\Users\Компьютер\Desktop\glew-2.1.0\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -121,13 +122,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Users\Nikita\Desktop\BomberMan\include;C:\Program Files %28x86%29\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Users\Nikita\Desktop\BomberMan\include;C:\Program Files %28x86%29\SFML-2.5.1\include;C:\Users\Компьютер\Desktop\SSG for SFML-2.4.2 via MinGW-32-6.1.0\include;C:\Program Files %28x86%29\SFML-2.5.1\imgui-master;C:\Users\Компьютер\Desktop\glew-2.1.0\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Nikita\Desktop\BomberMan\lib;C:\Program Files %28x86%29\SFML-2.5.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Nikita\Desktop\BomberMan\lib;C:\Program Files %28x86%29\SFML-2.5.1\lib;C:\Users\Компьютер\Desktop\SSG for SFML-2.4.2 via MinGW-32-6.1.0\include\SSG;C:\Users\Компьютер\Desktop\glew-2.1.0\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-system-d.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -138,23 +139,32 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\SFML-2.5.1\include;%(AdditionalIncludeDirectories);C:\Program Files %28x86%29\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\SFML-2.5.1\include;%(AdditionalIncludeDirectories);C:\Program Files %28x86%29\SFML-2.5.1\include;C:\Program Files %28x86%29\SFML-2.5.1\imgui-master;C:\Program Files %28x86%29\SFML-2.5.1\imgui-master\imgui-sfml-master;C:\Users\Компьютер\Desktop\SSG for SFML-2.4.2 via MinGW-32-6.1.0\include;C:\Program Files %28x86%29\SFML-2.5.1\imgui-master;C:\Users\Компьютер\Desktop\glew-2.1.0\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\SFML-2.5.1\lib;C:\Users\Компьютер\Desktop\glew-2.1.0\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui-SFML.cpp" />
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui.cpp" />
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui_demo.cpp" />
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui_draw.cpp" />
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui_tables.cpp" />
+    <ClCompile Include="..\..\..\..\..\Program Files (x86)\SFML-2.5.1\imgui-master\imgui_widgets.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="DamageReciever.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scenario.cpp" />
     <ClCompile Include="Spawner.cpp" />
@@ -166,13 +176,18 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scenario.h" />
     <ClInclude Include="Spawner.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bmpMejoras.png" />
+    <Image Include="bomb.png" />
     <Image Include="enemies.png" />
     <Image Include="enemy.png" />
+    <Image Include="fire.png" />
     <Image Include="player.png" />
     <Image Include="tileset.png" />
   </ItemGroup>

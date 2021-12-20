@@ -9,6 +9,7 @@ public:
 	void run();
 	void add(GameObject*);
 	void remove(GameObject*);
+	bool isPlaying = false;
 private:
 	vector<GameObject *> game_objects;
 	vector<DamageReciever *> damage_recievers;

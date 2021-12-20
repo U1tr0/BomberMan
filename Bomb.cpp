@@ -29,6 +29,9 @@ void Bomb::update(float delta_time)
 Bomb::Bomb(Scenario *scenario, DamageReciever * r): scenario(scenario)
 {
 	damage_recievers = r;
+	t.loadFromFile("bomb.png");
+	anim.setTexture(t);
+	anim.setTextureRect(IntRect(0, 0, 32, 32));
 	rect = new RectangleShape();
 	rect->setFillColor(Color::Red);
 
@@ -68,8 +71,17 @@ void Bomb::draw(sf::RenderWindow &window)
 	{
 
 
-		rect->setSize(Vector2f(16, 16));
-		rect->setPosition(this->x - 8, this->y - 8);
-		window.draw(*rect);
+		//rect->setSize(Vector2f(16, 16));
+		//rect->setPosition(this->x - 8, this->y - 8);
+		anim.setScale(0.5,0.5);
+		anim.setPosition(this->x - 8, this->y - 8);
+		window.draw(anim);
+		//window.draw(*rect);
 	}
+}
+
+sf::Vector2f Bomb::getPivotPosition()
+{
+	sf::Vector2f temp = rect->getSize();
+	return position + sf::Vector2f(temp.x / 2, temp.y / 2);
 }

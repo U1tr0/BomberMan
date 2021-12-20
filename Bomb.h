@@ -25,5 +25,10 @@ protected:
 	bool activated = false;
 	float delay = 2.0f;
 	float timer = 0;
+	Sprite anim;
+	Texture t;
+
+	// Унаследовано через GameObject
+	virtual sf::Vector2f getPivotPosition() override;
 };
 

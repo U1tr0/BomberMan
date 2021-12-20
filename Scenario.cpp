@@ -1,5 +1,9 @@
 #include "Scenario.h"
+#include "Spawner.h"
 Scenario::Scenario() {
+	for (int i = 0; i < columns; i++)
+		for (int j = 0; j < rows; j++)
+			colliders[i][j] = nullptr;
 }
 
 Scenario::~Scenario() {
@@ -8,10 +12,13 @@ Scenario::~Scenario() {
 
 void Scenario::generateMatrix() {
 	srand(time(NULL));
-
+	
 	for (int i = 0; i < columns; i++)
 		for (int j = 0; j < rows; j++)
-			colliders[i][j] = nullptr;
+			if (colliders[i][j] != nullptr) {
+				delete colliders[i][j];
+				colliders[i][j] = nullptr;
+			}
 
 	for (int i = 0; i < columns; i++) {
 		for (int j = 0; j < rows; j++) {
@@ -42,12 +49,15 @@ void Scenario::generateMatrix() {
 			}
 		}
 	}
+
+	spawn->spawn();
 }
 
 Scenario::BLOCK_TYPE Scenario::getBlock(int i, int j) const
 {
 	return map[i][j];
 }
+
 void Scenario::fireCell(int position_x, int position_y)
 {
 	auto current_type = map[position_x / cell_width][position_y / cell_width];
@@ -55,58 +65,69 @@ void Scenario::fireCell(int position_x, int position_y)
 	{
 		delete colliders[position_x / cell_width][position_y / cell_width];
 		colliders[position_x / cell_width][position_y / cell_width] = nullptr;
-		map[position_x / cell_width][position_y / cell_width] = BLOCK_TYPE::FIRED;
-
+		if (current_type == Scenario::BLOCK_TYPE::BREAKABLE) {
+			map[position_x / cell_width][position_y / cell_width] = BLOCK_TYPE::GROUND;
+		}
+		else {
+			map[position_x / cell_width][position_y / cell_width] = BLOCK_TYPE::FIRED;
+		}
 		timer = 0.0f;
 	}
 }
+
 BoxCollider *Scenario::getCollidersMij(int i, int j) const
 {
 	return colliders[i][j];
 }
+
 void Scenario::draw(sf::RenderWindow &window) {
 	RectangleShape rectangle;
 	rectangle.setSize(Vector2f(cell_width, cell_width));
-	Texture tex;
-	tex.loadFromFile("tileset.png");
-	Sprite anim;
-	anim.setTexture(tex);
+	Texture t1;
+	t1.loadFromFile("tileset.png");
+	Sprite anim1;
+	anim1.setTexture(t1);
+	Texture t2;
+	Sprite anim2;
+	t2.loadFromFile("fire.png");
+	anim2.setTexture(t2);
+	anim2.setTextureRect(IntRect(32, 32, 16, 16));
+	anim2.setScale(2, 2);
 	for (int i = 0; i < columns; i++) {
 		for (int j = 0; j < rows; j++) {
 			BLOCK_TYPE x = map[i][j];
 			switch (x)
 			{
-			case Scenario::BLOCK_TYPE::GROUND:
-				//rectangle.setFillColor(Color::Green);
-				anim.setTextureRect(IntRect(32, 0, 32, 32));
-				anim.setPosition(i * cell_width, j * cell_width);
-				window.draw(anim);
-				break;
+
 			case Scenario::BLOCK_TYPE::BREAKABLE:
 				//rectangle.setFillColor(Color::Blue);
-				anim.setTextureRect(IntRect(64, 32, 32, 32));
-				anim.setPosition(i * cell_width, j * cell_width);
-				window.draw(anim);
+				anim1.setTextureRect(IntRect(64, 32, 32, 32));
+				anim1.setPosition(i * cell_width, j * cell_width);
+				window.draw(anim1);
 				break;
 			case Scenario::BLOCK_TYPE::UNBREAKABLE:
 				//rectangle.setFillColor(Color::Black);
-				anim.setTextureRect(IntRect(64, 0, 32, 32));
-				anim.setPosition(i * cell_width, j * cell_width);
-				window.draw(anim);
+				anim1.setTextureRect(IntRect(64, 0, 32, 32));
+				anim1.setPosition(i * cell_width, j * cell_width);
+				window.draw(anim1);
 				break;
-
+			case Scenario::BLOCK_TYPE::GROUND:
+				//rectangle.setFillColor(Color::Green);
+				anim1.setTextureRect(IntRect(32, 0, 32, 32));
+				anim1.setPosition(i * cell_width, j * cell_width);
+				window.draw(anim1);
+				break;
 			case Scenario::BLOCK_TYPE::FIRED:
-				rectangle.setPosition(i * 32, j * 32);
-				rectangle.setFillColor(Color::Yellow);
-				window.draw(rectangle);
+				
+				anim2.setPosition(i * cell_width, j * cell_width);
+				anim1.setTextureRect(IntRect(32, 0, 32, 32));
+				anim1.setPosition(i * cell_width, j * cell_width);
+				window.draw(anim1);
+				window.draw(anim2);
 				break;
 			default:
 				break;
 			}
-
-			//rectangle.setPosition(i * cell_width, j * cell_width);
-			//window.draw(rectangle);
-			
 		}
 	}
 }
@@ -124,6 +145,16 @@ int Scenario::getRows() const
 int Scenario::getCellWidth() const
 {
 	return cell_width;
+}
+
+void Scenario::fireOff()
+{
+	timer = 2;
+}
+
+sf::Vector2f Scenario::getOriginPosition()
+{
+	return sf::Vector2f(35, 35);
 }
 
 void Scenario::update(float dt)
@@ -148,5 +179,10 @@ void Scenario::update(float dt)
 		}
 	}
 	timer += dt;
+}
+
+sf::Vector2f Scenario::getPivotPosition()
+{
+	return sf::Vector2f();
 }
 

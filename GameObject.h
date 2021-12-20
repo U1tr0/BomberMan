@@ -9,4 +9,5 @@ public:
 	virtual ~GameObject(){}
 	virtual void draw(sf::RenderWindow &window) = 0;
 	virtual void update(float dt) = 0;
+	virtual sf::Vector2f getPivotPosition() = 0;
 };

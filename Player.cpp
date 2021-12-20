@@ -64,8 +64,9 @@ void Player::draw(sf::RenderWindow &window)
 	{
 		e->draw(window);
 	}
-	collider->draw(window);
+	//collider->draw(window);
 	window.draw(anim);
+	hb.draw(window);
 }
 
 void Player::update(float dt)
@@ -77,24 +78,23 @@ void Player::update(float dt)
 
 	if (bombs.size())
 	{
-		for (auto it = bombs.begin(); it != bombs.end(); it++)
-		{
-			auto temp = *it;
-			if (temp->isUsed())
-			{
-				//delete temp;
-				//bombs.erase(it);
-			}
-			else
-			{
-				temp->update(dt);
-			}
+		auto it = bombs.begin();
+		auto temp = *it;
+		if (temp->isUsed()) {
+			delete temp;
+			bombs.erase(it);
 		}
+	}
+
+	for (auto it = bombs.begin(); it != bombs.end(); it++)
+	{
+		auto temp = *it;
+		temp->update(dt);
 	}
 
 	collider->setPosition(position.x + collider_width / 2, position.y + collider_height / 2);
 
-
+	
 	for (size_t i = 0; i < scenario->getColumns(); i++)
 	{
 		for (size_t j = 0; j < scenario->getRows(); j++)
@@ -110,7 +110,8 @@ void Player::update(float dt)
 			}
 		}
 	}
-
+	
+	
 	position.y += dy * dt;
 	collider->setPosition(position.x + collider_width / 2, position.y + collider_height / 2);
 
@@ -131,6 +132,7 @@ void Player::update(float dt)
 		}
 	}
 
+	collider->setPosition(position.x + collider_width / 2, position.y + collider_height / 2);
 	anim.setPosition(position.x, position.y);
 
 	dx = 0;
@@ -144,8 +146,8 @@ void Player::update(float dt)
 			switch (x)
 			{
 			case Scenario::BLOCK_TYPE::FIRED:
-				curr_x = collider->position.x / 32;
-				curr_y = collider->position.y / 32;
+				curr_x = collider->getPivotPosition().x / scenario->getCellWidth();
+				curr_y = collider->getPivotPosition().y / scenario->getCellWidth();
 				if (curr_x == i && curr_y == j)
 					die();
 				break;
@@ -156,47 +158,77 @@ void Player::update(float dt)
 
 		}
 	}
+	if (killsCounter >= 5) {
+		killsCounter = 0;
+		scenario->generateMatrix();
+		return_back();
+	}
+
+	hb.update(dt);
 }
 
 bool Player::check_collistion_x()
 {
-	int curr_x = position.x / 32;
-	int curr_y = position.y / 32;
-
-	if (scenario->getCollidersMij(curr_x - 1, curr_y)->intersects(*collider))
-		return true;
-	if (scenario->getCollidersMij(curr_x + 1, curr_y)->intersects(*collider))
-		return true;
-
+	int curr_x = collider->getPivotPosition().x / scenario->getCellWidth();
+	int curr_y = collider->getPivotPosition().y / scenario->getCellWidth();
+	auto leftCell = scenario->getCollidersMij(curr_x - 1, curr_y);
+	auto rightCell = scenario->getCollidersMij(curr_x + 1, curr_y);
+	if (leftCell) {
+		if (leftCell->intersects(*collider)) {
+			return true;
+		}
+	}
+	if (rightCell) {
+		if (rightCell->intersects(*collider)) {
+			return true;
+		}
+	}
+	
 	return false;
 }
 
 bool Player::check_collistion_y()
 {
-	int curr_x = position.x / 32;
-	int curr_y = position.y / 32;
-
-	if (scenario->getCollidersMij(curr_x, curr_y)->intersects(*collider))
-		return true;
-	if (scenario->getCollidersMij(curr_x, curr_y)->intersects(*collider))
-		return true;
+	int curr_x = collider->getPivotPosition().x / scenario->getCellWidth();
+	int curr_y = collider->getPivotPosition().y / scenario->getCellWidth();
+	auto topCell = scenario->getCollidersMij(curr_x, curr_y - 1);
+	auto bottomCell = scenario->getCollidersMij(curr_x, curr_y + 1);
+	if (topCell) {
+		if (topCell->intersects(*collider)) {
+			return true;
+		}
+	}
+	if (bottomCell) {
+		if (bottomCell->intersects(*collider)) {
+			return true;
+		}
+	}
 
 	return false;
 }
 
 void Player::die()
 {
-	hp -= 1;
-	return_back();	
+	hb.decreaseHP();
+	return_back();
+	if (hb.getCurHP() == 0) {
+		scenario->generateMatrix();
+		hb.resetHP();
+	}
 }
 
 void Player::return_back()
 {
-	position.x = 35;
-	position.y = 35;
+	position = scenario->getOriginPosition();
+	scenario->fireOff();
 }
 
 void Player::applyDamage(float x, float y, float damage)
 {
 
+}
+
+sf::Vector2f Player::getPivotPosition()
+{
+	return collider->getPivotPosition();
 }

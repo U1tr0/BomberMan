@@ -6,7 +6,7 @@
 class Spawner
 {
 public:
-	inline Spawner(Scenario* scenario, Engine* engine) : scene(scenario), engine(engine)
+	inline Spawner(Scenario* scenario, Engine* engine, Player* player) : scene(scenario), engine(engine), player(player)
 	{
 
 	}
@@ -15,6 +15,9 @@ public:
 private:
 	Scenario *scene;
 	Engine *engine;
+	Player *player;
+
+	std::vector<Enemy*> enemies;
 	
 };
 
